@@ -8,8 +8,41 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import "./user.css";
+import { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router";
+import axios from "axios";
 
 export default function User() {
+  const {id}= useParams();
+  const redirect =useHistory();
+
+  const [UpdatedUser, SetUpdatedUser] =useState({ RegistrationNo:"", IntinitationLetterSerial:"", 
+  BookingFormSerial:"", Detail:""});
+
+  function LoadUserData(){
+    axios.get(`http://localhost:4000/loaduser/${id}`).then((res) => SetUpdatedUser(res.data)).catch(err => window.alert(err));
+  }
+
+  useEffect(() => {
+    LoadUserData();
+  }
+  , [])
+
+  let name, value;
+  function HandleInputs(e){
+        name = e.target.name;
+        value = e.target.value;
+        SetUpdatedUser({ ...UpdatedUser, [name]: value })
+        console.log(UpdatedUser);
+  }
+
+
+  function UpdateUser(id){
+    axios.put(`http://localhost:4000/updateuser/${id}`, UpdatedUser)
+    .then(() =>redirect.push('/users'))
+    .catch(err => window.alert(err));
+  }
+
   return (
     <>
         <div className="user">
@@ -61,46 +94,52 @@ export default function User() {
         
         <div className="userUpdate">
           <span className="userUpdateTitle">Edit</span>
-          <form className="userUpdateForm">
+          <div className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
-                <label>Username</label>
+                <label>Registration No</label>
                 <input
                   type="text"
-                  placeholder="annabeck99"
+                  placeholder="Registration No"
                   className="userUpdateInput"
+                  name="RegistrationNo"
+                  value={UpdatedUser.RegistrationNo}
+                  onChange={(e)=>HandleInputs(e)}
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Full Name</label>
+                
+                <label>Intinitation Letter Serial</label>
                 <input
                   type="text"
-                  placeholder="Anna Becker"
+                  placeholder="Intinitation Letter Serial"
                   className="userUpdateInput"
+                  name="IntinitationLetterSerial"
+                  value={UpdatedUser.IntinitationLetterSerial}
+                  onChange={(e)=>HandleInputs(e)}
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Email</label>
+                <label>Booking Form Serial</label>
                 <input
                   type="text"
-                  placeholder="annabeck99@gmail.com"
+                  placeholder="Booking Form Serial"
                   className="userUpdateInput"
+                  name="BookingFormSerial"
+                  value={UpdatedUser.BookingFormSerial}
+                  onChange={(e)=>HandleInputs(e)}
+                  
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Phone</label>
+                <label>Detail</label>
                 <input
                   type="text"
-                  placeholder="+1 123 456 67"
+                  placeholder="Detail"
                   className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Address</label>
-                <input
-                  type="text"
-                  placeholder="New York | USA"
-                  className="userUpdateInput"
+                  name="Detail"
+                  value={UpdatedUser.Detail}
+                  onChange={(e)=>HandleInputs(e)}
                 />
               </div>
             </div>
@@ -116,9 +155,9 @@ export default function User() {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton">Update</button>
+              <button className="userUpdateButton" onClick={()=>UpdateUser(id)}>Update</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
