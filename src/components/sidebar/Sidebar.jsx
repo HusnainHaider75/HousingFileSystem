@@ -11,8 +11,9 @@ import {
   DynamicFeed,
   ChatBubbleOutline,
   WorkOutline,
-  Report,
 } from "@material-ui/icons";
+import SettingsIcon from '@material-ui/icons/Settings';
+
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
@@ -91,10 +92,12 @@ export default function Sidebar() {
               <Timeline className="sidebarIcon" />
               Analytics
             </li>
+            <Link to='/settings'  className="link">
             <li className="sidebarListItem">
-              <Report className="sidebarIcon" />
-              Reports
+              <SettingsIcon className="sidebarIcon" />
+              Settings
             </li>
+            </Link>
           </ul>
         </div>
       </div>

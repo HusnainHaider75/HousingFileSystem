@@ -2,32 +2,22 @@ import "./newUser.css";
 import { useState } from "react";
 import axios from 'axios';
 import { useHistory } from "react-router";
-import QRCode from 'qrcode';
 
 export default function NewUser() {
   const redirect =useHistory();
   const LoggedInUser = JSON.parse(localStorage.getItem("auth0spajs"));
   const [User, SetUser] = useState({ RegistrationNo:"", IntinitationLetterSerial:"", 
-  BookingFormSerial:"", CreatedBy:`${LoggedInUser.email}`,QR_Code:"" , Detail:""});
+  BookingFormSerial:"", CreatedBy:`${LoggedInUser.email}`, Detail:""});
 
   let name, value;
   function HandleInputs(e){
-    name = e.target.name;
+        name = e.target.name;
         value = e.target.value;
         SetUser({ ...User, [name]: value })
   }
 
-  const generateQrCode = async () => {
-    try {
-          const ResultedCode = await QRCode.toDataURL(``);
-          
-    }catch (error) {
-      console.log(error);
-    }
-  }
-
+  
   async function SubmitUser(){
-    generateQrCode();
     const result = await axios.post('http://localhost:4000/createuser', User);
     if (result.data) {
       redirect.push(`/users`)

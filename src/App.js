@@ -11,7 +11,9 @@ import Login from "./pages/login/login";
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import { useAuth0 } from "@auth0/auth0-react";
-import QR_Code from "./pages/QRCode/QR_Code";
+import IntinitationFrom_QR_Code from "./pages/QRCode/IntinitationFrom_QR_Code";
+import BookingForm_QR_Code from "./pages/QRCode/BookingForm_QR_Code";
+import TopLeftSetting from './pages/Settings/TopLeftSetting';
 
 function App() {
   const{ isAuthenticated }=useAuth0();
@@ -31,9 +33,10 @@ function App() {
           <Route exact path="/products" component={ProductList}/> 
           <Route exact path="/product/:productId" component={Product}/>
           <Route exact path="/newproduct" component={NewProduct}/> 
-          <Route exact path="/users/QrCode" component={QR_Code}/> 
+          <Route exact path="/users/QrCode/RegNo/:RegNo/IntinitationNo/:IntinitationFromNo" component={IntinitationFrom_QR_Code}/> 
+          <Route exact path="/users/QrCode/RegNo/:RegNo/BookingFormNo/:BookingFormNo" component={BookingForm_QR_Code}/> 
+          <Route exact path="/settings" component={TopLeftSetting}/> 
         </Switch>
-
       </div>
     </Router>
     </>

@@ -4,7 +4,6 @@ const DataModel = mongoose.Schema({
     IntinitationLetterSerial: String,
     BookingFormSerial: String,
     CreatedBy : String,
-    QR_Code: String,
     Status: Boolean,
     Detail: String
 });

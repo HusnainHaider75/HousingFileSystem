@@ -53,8 +53,8 @@ export default function UserList() {
       editable: false
     },
     {
-      field: "QRCode",
-      headerName: "QR Code",
+      field: "IntinitationLetterSerialQRCode",
+      headerName: "Intinitation Letter QR-Code",
       type: "string",
       width: 160,
       editable: false,
@@ -62,7 +62,23 @@ export default function UserList() {
         return (
           <>
             <Link to={`/users/QRCode/RegNo/${params.row.RegistrationNo}/IntinitationNo/${params.row.IntinitationLetterSerial}`}>
-            <span>QR Code</span>
+            <span>Intinitation Letter QR-Code</span>
+            </Link>  
+          </>
+        );
+      }
+    },
+    {
+      field: "BookingFormQRCode",
+      headerName: "Booking Form QR-Code",
+      type: "string",
+      width: 160,
+      editable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/users/QRCode/RegNo/${params.row.RegistrationNo}/BookingFormNo/${params.row.BookingFormSerial}`}>
+            <span>Booking Form QR-Code</span>
             </Link>  
           </>
         );
