@@ -14,11 +14,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import IntinitationFrom_QR_Code from "./pages/QRCode/IntinitationFrom_QR_Code";
 import BookingForm_QR_Code from "./pages/QRCode/BookingForm_QR_Code";
 import TopLeftSetting from './pages/Settings/TopLeftSetting';
+import { useParams } from "react-router";
 
 function App() {
   const{ isAuthenticated }=useAuth0();
-
   return (
+  
     <>
     <Router> 
       { isAuthenticated ? <Topbar/> : ""}

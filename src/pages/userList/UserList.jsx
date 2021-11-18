@@ -14,8 +14,18 @@ export default function UserList() {
 
   const redirect = useHistory();
   const [LoadUser, setLoadUser] = useState([]);
-  
- function AllUserData(){
+
+
+  function OpenIntimationLetter(RegistrationNo , IntinitationLetterSerial){
+
+    window.open(`/users/QRCode/RegNo/${RegistrationNo}/IntinitationNo/${IntinitationLetterSerial}`)
+  }
+
+  function OpenBookingLetter(RegistrationNo , BookingFormSerial){
+    window.open()
+  }
+
+  function AllUserData(){
     axios.get('http://localhost:4000/loaduser')
     .then((res) => setLoadUser(res.data))
     .catch(err => window.alert(err))
@@ -61,9 +71,12 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/users/QRCode/RegNo/${params.row.RegistrationNo}/IntinitationNo/${params.row.IntinitationLetterSerial}`}>
-            <span>Intinitation Letter QR-Code</span>
-            </Link>  
+            {/* <Link to={`/users/QRCode/RegNo/${params.row.RegistrationNo}/IntinitationNo/${params.row.IntinitationLetterSerial}`}>
+            <span>Link 1</span>
+            </Link>  */}
+            <Link onClick={()=>OpenIntimationLetter(params.row.RegistrationNo, params.row.IntinitationLetterSerial)}>
+            <span>A</span>
+            </Link> 
           </>
         );
       }
@@ -78,8 +91,11 @@ export default function UserList() {
         return (
           <>
             <Link to={`/users/QRCode/RegNo/${params.row.RegistrationNo}/BookingFormNo/${params.row.BookingFormSerial}`}>
-            <span>Booking Form QR-Code</span>
+            <span>Link 2</span>
             </Link>  
+            {/* <Link onClick={()=>OpenBookingLetter(params.row.RegistrationNo, params.row.BookingFormSerial)}>
+            <span>B</span>
+            </Link>  */}
           </>
         );
       }
@@ -123,6 +139,7 @@ export default function UserList() {
         <ImFolderPlus size={30} className="userListAdd"></ImFolderPlus>
     </Link>
       <DataGrid rows={rows} columns={columns} />
+
     </div>
     </>
   );

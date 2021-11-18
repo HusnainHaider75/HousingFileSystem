@@ -1,61 +1,271 @@
-import React from 'react'
-import { Grid,Paper, Avatar, TextField, Button } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { useState } from 'react';
-import { useHistory } from 'react-router';
-import axios from 'axios';
+import React from "react";
+import {
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  Button,
+  Box,
+  styled,
+} from "@material-ui/core";
+import SettingsIcon from "@material-ui/icons/Settings";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import axios from "axios";
+import "./TopLeftSetting.css";
 
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 export default function TopLeftSetting() {
-
   const redirect = useHistory();
-  const [PageSetting, SetPageSetting]=useState({
-    LeftMargin:"", RightMargin:""
+
+  const [QRCodeSetting, SetQRCodeSetting] = useState({
+    LeftMargin: "",
+    TopMargin: "",
   });
 
+  const [RegistrationSetting, SetRegistrationSetting] = useState({
+    LeftMargin: "",
+    TopMargin: "",
+  });
+
+  const [SecurityKeySetting, SetSecurityKeySetting] = useState({
+    LeftMargin: "",
+    TopMargin: "",
+  });
+
+  const [NotSerialNoSetting, SetNotSerialNoSetting] = useState({
+    LeftMargin: "",
+    TopMargin: "",
+  });
+
+  const [IssueDateSetting, SetIssueDateSetting] = useState({
+    LeftMargin: "",
+    TopMargin: "",
+  });
 
   let name, value;
-  function HandleInputs(e){
-    name= e.target.name;
+  function HandleInputs(e) {
+    name = e.target.name;
     value = e.target.value;
 
-    SetPageSetting({ ...PageSetting, [name]:value})
-
+    SetQRCodeSetting({ ...QRCodeSetting, [name]: value });
   }
 
-  const SubmitPageSetting =async ()=>{
-    
-    const result = await axios.put('http://localhost:4000/pagesetting', PageSetting);
+  const SubmitPageSetting = async () => {
+    const result = await axios.post(
+      "http://localhost:4000/pagesetting",
+      QRCodeSetting
+    );
     if (result.data) {
-      alert(result.data)
+      redirect.push(`/users`);
+    } else {
+      redirect.push(`/users`);
     }
-    else {
-        redirect.push(`/newUser`)
-    }
-  }
-
-  const paperStyle={padding :20,height:'57vh',width:400, margin:"70px 29%"}
-  const avatarStyle={backgroundColor:'#1bbd7e'}
-  const btnstyle={margin:'40px 0'}
+  };
 
   return (
-    <div className="userList">
-            <Grid>
-            <Paper elevation={10} style={paperStyle}>
-                <Grid align='center'>
-                     <Avatar style={avatarStyle}><SettingsIcon/></Avatar>
-                    <h2>Reset Page</h2>
-                </Grid>
-                <TextField label='Left Margin' name="LeftMargin" value={PageSetting.LeftMargin} fullWidth required variant="outlined" onChange={(e)=>HandleInputs(e)}/>
-                <br/>
-                <br/>
-                <br/>
-                <TextField label='Right Margin' name="RightMargin"  value={PageSetting.RightMargin} fullWidth required variant="outlined" onChange={(e)=>HandleInputs(e)}/>
-  
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth onClick={()=>SubmitPageSetting()}>Set Page</Button>
+   
 
-            </Paper>
-        </Grid>
-    </div>
+        <div className="userList">
+
+      {/* First Form */}
+
+            <div className="user">
+            <div className="userUpdate">
+              <span className="userUpdateTitle">Set QR Code</span>
+              <div className="userUpdateForm">
+                <div className="userUpdateLeft">
+
+                  <div className="userUpdateItem">
+                    <label>Left Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="LeftMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+
+                    />
+                  </div>
+                  <div className="userUpdateItem">
+                    <label>Top Margin</label>
+                    <input
+                      type="text"s
+                      className="userUpdateInput"
+                      name="TopMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                </div>
+                <div className="userUpdateRight">
+                  <div className="userUpdateUpload">
+                    <input type="file" id="file" style={{ display: "none" }} />
+                  </div>
+                  <button className="userUpdateButton" >Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    {/* Second Form */}
+    <div className="user">
+            <div className="userUpdate">
+              <span className="userUpdateTitle">Set Registration No.</span>
+              <div className="userUpdateForm">
+                <div className="userUpdateLeft">
+                  <div className="userUpdateItem">
+                    <label>Left Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="LeftMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+
+                    />
+                  </div>
+                  <div className="userUpdateItem">
+                    <label>Right Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="RightMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                </div>
+                <div className="userUpdateRight">
+                  <div className="userUpdateUpload">
+                    <input type="file" id="file" style={{ display: "none" }} />
+                  </div>
+                  <button className="userUpdateButton" >Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    {/* Third Form */}
+    <div className="user">
+            <div className="userUpdate">
+              <span className="userUpdateTitle">Set Security Key</span>
+              <div className="userUpdateForm">
+                <div className="userUpdateLeft">
+                  <div className="userUpdateItem">
+                    <label>Left Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="LeftMargin"
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                  <div className="userUpdateItem">
+
+                    <label>Top Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="TopMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                </div>
+                <div className="userUpdateRight">
+                  <div className="userUpdateUpload">
+
+                  </div>
+                  <button className="userUpdateButton" >Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    {/* Forth Form */}
+    <div className="user">
+            <div className="userUpdate">
+              <span className="userUpdateTitle">Set Issue Date</span>
+              <div className="userUpdateForm">
+                <div className="userUpdateLeft">
+                  <div className="userUpdateItem">
+                    <label>Left Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="LeftMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                  <div className="userUpdateItem">
+
+                    <label>Top Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="TopMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                </div>
+                <div className="userUpdateRight">
+                  <div className="userUpdateUpload">
+                    <input type="file" id="file" style={{ display: "none" }} />
+                  </div>
+                  <button className="userUpdateButton" >Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    {/* Fifth Form */}
+
+    <div className="user">
+            <div className="userUpdate">
+              <span className="userUpdateTitle">Set Note Serial No.</span>
+              <div className="userUpdateForm">
+                <div className="userUpdateLeft">
+                  <div className="userUpdateItem">
+                    <label>Left Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="LeftMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                  <div className="userUpdateItem">
+
+                    <label>Top Margin</label>
+                    <input
+                      type="text"
+                      className="userUpdateInput"
+                      name="TopMargin"
+
+                      onChange={(e)=>HandleInputs(e)}
+                    />
+                  </div>
+                </div>
+                <div className="userUpdateRight">
+                  <div className="userUpdateUpload">
+                    <input type="file" id="file" style={{ display: "none" }} />
+                  </div>
+                  <button className="userUpdateButton" >Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
   );
 }
