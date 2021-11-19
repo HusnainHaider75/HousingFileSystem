@@ -11,10 +11,15 @@ import Login from "./pages/login/login";
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import { useAuth0 } from "@auth0/auth0-react";
+import IntinitationFrom_QR_Code from "./pages/QRCode/IntinitationFrom_QR_Code";
+import BookingForm_QR_Code from "./pages/QRCode/BookingForm_QR_Code";
+import TopLeftSetting from './pages/Settings/TopLeftSetting';
+import { useParams } from "react-router";
+
 function App() {
   const{ isAuthenticated }=useAuth0();
-
   return (
+  
     <>
     <Router> 
       { isAuthenticated ? <Topbar/> : ""}
@@ -23,14 +28,16 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login}/>
           <Route exact path="/home" component={Home}/>
-          <Route path="/users" component={UserList}/> 
-          <Route path="/user/:userId" component={User}/> 
-          <Route path="/newUser" component={NewUser}/> 
-          <Route path="/products" component={ProductList}/> 
-          <Route path="/product/:productId" component={Product}/>
-          <Route path="/newproduct" component={NewProduct}/> 
+          <Route exact path="/users" component={UserList}/> 
+          <Route exact path="/user/:id" component={User}/> 
+          <Route exact path="/newUser" component={NewUser}/> 
+          <Route exact path="/products" component={ProductList}/> 
+          <Route exact path="/product/:productId" component={Product}/>
+          <Route exact path="/newproduct" component={NewProduct}/> 
+          <Route exact path="/users/QrCode/RegNo/:RegNo/IntinitationNo/:IntinitationFromNo" component={IntinitationFrom_QR_Code}/> 
+          <Route exact path="/users/QrCode/RegNo/:RegNo/BookingFormNo/:BookingFormNo" component={BookingForm_QR_Code}/> 
+          <Route exact path="/settings" component={TopLeftSetting}/> 
         </Switch>
-
       </div>
     </Router>
     </>

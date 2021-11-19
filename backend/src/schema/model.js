@@ -4,7 +4,8 @@ const DataModel = mongoose.Schema({
     IntinitationLetterSerial: String,
     BookingFormSerial: String,
     CreatedBy : String,
-    Status: Boolean
+    Status: Boolean,
+    Detail: String
 });
 const DataSample =mongoose.model('UserData', DataModel);
 module.exports =DataSample;
