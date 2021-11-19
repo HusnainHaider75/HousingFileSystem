@@ -10,6 +10,7 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/login";
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import IntinitationFrom_QR_Code from "./pages/QRCode/IntinitationFrom_QR_Code";
 import BookingForm_QR_Code from "./pages/QRCode/BookingForm_QR_Code";
